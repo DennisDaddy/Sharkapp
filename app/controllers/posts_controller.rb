@@ -22,17 +22,7 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to shark_posts_path(@shark), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+    @post = @shark.posts.create(post_params)
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
@@ -50,11 +40,8 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    @post = @shark.posts.find(params[:id])
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to shark_post_path(@shark), notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private
