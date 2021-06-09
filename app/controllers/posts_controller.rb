@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = @shark.posts
+    @posts = Post.all
   end
 
   # GET /posts/1 or /posts/1.json
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = @shark.posts.build
+    @post = Post.new
   end
 
   # GET /posts/1/edit
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = @shark.posts.build(post_params)
+    @post = Post.new(post_params)
 
     respond_to do |format|
       if @post.save
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = @shark.posts.find(params[:id])
+      @post = Post.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
